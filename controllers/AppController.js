@@ -2,21 +2,22 @@ import RedisClient from '../utils/redis';
 import DBClient from '../utils/db';
 
 class AppController {
-  static getStatus (request, response) {
+  static getStatus(req, res) {
     const status = {
       redis: RedisClient.isAlive(),
       db: DBClient.isAlive()
     };
-    return response.status(200).send(status);
+    return res.status(200).send(status);
   }
 
-  static async getStats (request, response) {
+  static async getStats(req, res) {
     const stats = {
       users: await DBClient.nbUsers(),
       files: await DBClient.nbFiles()
     };
-    return response.status(200).send(stats);
+    return res.status(200).send(stats);
   }
 }
 
 module.exports = AppController;
+
